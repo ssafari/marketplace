@@ -1,0 +1,63 @@
+#! /bin/sh
+#
+# This file setups a deamon. It can be start and stop from
+# command line. It will be run as background service.
+# Save this file in /etc/init.rc/
+#
+# Run this command to add it to services:
+# update-rc.d <file_name> defaults
+#
+# To Refresh/Reload deamon services: 
+# sudo systemctl daemon-reload
+#
+# To check the status of deamon:
+# systemctl status eureka.service
+#
+
+# Add the name of deamon
+NAME=eureka
+DESC="Eureka Discovery Server Daemon"
+PIDFILE="/var/run/${NAME}.pid"
+LOGFILE="/var/log/${NAME}.log"
+
+# Java binary path
+DAEMON="/usr/bin/java"
+
+# Path of your php script
+DAEMON_OPTS="/var/local/services/eureka/discovery-server.jar"
+
+PARAM="-jar"
+START_OPTS="--start --background --make-pidfile --pidfile ${PIDFILE} --exec ${DAEMON} -- -jar ${DAEMON_OPTS}"
+STOP_OPTS="--stop --pidfile ${PIDFILE}"
+
+test -x $DAEMON || exit 0
+
+set -e
+
+case "$1" in
+	start)
+	echo -n "Starting ${DESC}: "
+	start-stop-daemon $START_OPTS >> $LOGFILE
+	echo "$NAME."
+	;;
+	stop)
+	echo -n "Stopping $DESC: "
+	start-stop-daemon $STOP_OPTS
+	echo "$NAME."
+	rm -f $PIDFILE
+	;;
+	restart|force-reload)
+	echo -n "Restarting $DESC: "
+	start-stop-daemon $STOP_OPTS
+	sleep 1
+	start-stop-daemon $START_OPTS >> $LOGFILE
+	echo "$NAME."
+	;;
+	*)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0

@@ -1,0 +1,33 @@
+KAFKA setup and running:
+========================
+
+Make these changes first on each raspberry-pi machines:
+
+1. server.properties:
+2. zookeeper.properties:
+3. kafka-run-class.sh:
+
+
+1. To run Kafka on each machine:
+  ./bin/kafka-server-start.sh config/server.properties
+
+2. To create Topic:
+  ./bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 1 --topic order-inputs
+
+3. To check the topic
+  ./bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic order-inputs
+
+4. To start sending messages: 
+  ./bin/kafka-console-producer.sh —-broker-list 192.168.1.202:9092,192.168.1.201:9092,192.168.1.200:9092  --topic order-inputs
+
+5. To receive the messages:
+  ./bin/kafka-console-consumer.sh --bootstrap-server 192.168.1.202:9092 --from-beginning --topic order-inputs
+
+
+
+AngularJS:
+==========
+Download the latest from https://nodejs.org/en/
+Create project: ng new <project_name>
+Add bootstrap:  npm install --save bootstrap
+
