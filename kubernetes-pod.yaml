@@ -1,0 +1,29 @@
+# Creates a pod in kubernetes cluster and deploys docker container
+# in the pod kubernetes cluster.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: marketplace.com
+  labels:
+    app: marketplace
+    zone: us-est-coast
+    cluster: mp-cluster1
+    rack: rack-1
+  annotations:
+    build: one
+    builder: Sepehr Safari
+spec:
+  containers:
+    - name: discovery-server
+      image: sdnsoft/marketplace:discovery-server-0.0.1-SNAPSHOT
+      ports:
+        - containerPort: 8761
+    - name: config-server
+      image: sdnsoft/marketplace:config-server-0.0.1-SNAPSHOT
+      ports:
+        - containerPort: 8888
+    - name: limit-service
+      image: sdnsoft/marketplace:limit-service-0.0.1-SNAPSHOT
+      ports:
+        - containerPort: 8001
+        

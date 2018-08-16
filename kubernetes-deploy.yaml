@@ -1,0 +1,37 @@
+# kubernetes-deploy.yaml
+#
+# The Deployment uses a label selector to identify the Pods it manages, 
+# and will create or delete Pods as needed to meet the replica count.
+# Deployments are also used to manage safely rolling out changes to 
+# the running Pods.
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marketplace-deployment
+  labels:
+    app: marketplace
+spec:
+  replicas: 1  #deployment to run 1 pods matching the template
+  selector:
+    matchLabels:
+      app: marketplace
+  template:
+    metadata:
+      labels:
+        app: marketplace
+    spec:
+      containers:
+        - name: discovery-server
+          image: sdnsoft/marketplace:discovery-server-0.0.1-SNAPSHOT
+          ports:
+            - containerPort: 8761
+        - name: config-server
+          image: sdnsoft/marketplace:config-server-0.0.1-SNAPSHOT
+          ports:
+            - containerPort: 8888
+        - name: limit-service
+          image: sdnsoft/marketplace:limit-service-0.0.1-SNAPSHOT
+          ports:
+            - containerPort: 8001
+        

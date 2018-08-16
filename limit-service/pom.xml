@@ -13,6 +13,10 @@
 	<name>limit-service</name>
 	<description>Demo project for Spring Boot</description>
 
+	<properties>
+		<image.name>limit-service</image.name>
+	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -63,6 +67,34 @@
 			            </configuration>
 			        </execution>
 			    </executions>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.4</version>
+				<configuration>
+				    <imageName>limit-service</imageName>
+					<repository>${docker.hub}</repository>
+					<tag>${project.build.finalName}</tag>
+					<buildArgs>
+						<JAR_FILE>target/${project.build.finalName}-spring-boot.jar</JAR_FILE>
+						<IMG>${image.name}.jar</IMG>
+						<PORT>${limit.port}</PORT>
+					</buildArgs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default</id>
+						<phase>install</phase>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+						<configuration>
+        <image>my-image</image>
+        </configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

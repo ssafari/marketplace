@@ -5,11 +5,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulServer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
+
+import zipkin2.server.internal.EnableZipkinServer;
 
 
 
 
+
+@EnableZipkinServer
 @EnableZuulServer
 @EnableDiscoveryClient
 @SpringBootApplication
@@ -20,7 +23,7 @@ public class GatewayServiceApplication {
 	}
 	
 	@Bean
-	public AlwaysSampler defaultSampler() {
+	public Sampler defaultSampler() {
 		return new AlwaysSampler();
 	}
 }

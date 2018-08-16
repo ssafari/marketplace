@@ -1,0 +1,22 @@
+# kubernetes-service.yaml
+#
+# Pods are grouped into Services. Services target Pods using label 
+# selectors, which are defined in Pod specifications. When users 
+# access the Service, they are automatically load-balanced to a 
+# Pod that serves your application.
+apiVersion: v1
+kind: Service
+metadata:
+  name: marketplace-service
+spec:
+  selector:
+    app: marketplace     # Label selector. Service will target Pods that use this label
+  ports:
+    - port: 8761         # Port used to access the Service from within the cluster.
+      targetPort: 8761   # Port opened by targeted Pods.
+    - port: 8001
+      targetPort: 8001
+    - port: 8888
+      targetPort: 8888
+      
+  type: LoadBalancer
