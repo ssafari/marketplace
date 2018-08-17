@@ -5,7 +5,7 @@ kubectl create -f kubernetes-pod.yaml
 kubectl create -f kubernetes-deploy.yaml
 
 # to update or upgrade any pod or coontainer image:
-===================================================
+# ===================================================
 kubectl apply -f kubernetes-deploy.yaml
 
 kubectl delete deployment kubernetes-deploy
