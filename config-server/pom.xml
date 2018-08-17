@@ -63,7 +63,7 @@
 					<repository>${docker.hub}</repository>
 					<tag>${project.build.finalName}</tag>
 					<buildArgs>
-						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+						<JAR_FILE>target/${project.build.finalName}-spring-boot.jar</JAR_FILE>
 						<IMG>${image.name}.jar</IMG>
 						<PORT>${config.port}</PORT>
 					</buildArgs>
