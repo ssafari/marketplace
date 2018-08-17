@@ -4,30 +4,27 @@
 kubectl create -f kubernetes-pod.yaml
 kubectl create -f kubernetes-deploy.yaml
 
-update or upgrade any pod or coontainer image:
+update or upgrade any pod or container image:
 ---------------------------------------------
 kubectl apply -f kubernetes-deploy.yaml
 
 kubectl delete deployment kubernetes-deploy
 
-
-#
-#----------------------------------------
 kubectl apply -f kubernetes-service.yaml
-
 
 kubectl get pods
 
-# View the Container’s logs:
-#--------------------------
+View the Container’s logs:
+--------------------------
+  
   kubectl logs marketplace.com
 
 
-# Get a shell into the Container that is running in your Pod:
-#-----------------------------------------------------------
+Get a shell into the Container that is running in your Pod:
+----------------------------------------------------------
   kubectl exec -it marketplace.com -- sh
 
 
-# Display logfile for a container in a pod:
-#------------------------------------------
+Display logfile for a container in a pod:
+-----------------------------------------
 kubectl logs -f -c discovery-server marketplace.com
