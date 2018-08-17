@@ -1,5 +1,5 @@
-Kubernetes:
------------
+# Kubernetes:
+# -----------
 
 kubectl create -f kubernetes-pod.yaml
 kubectl create -f kubernetes-deploy.yaml
