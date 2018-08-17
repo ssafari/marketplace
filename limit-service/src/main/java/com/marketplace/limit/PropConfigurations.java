@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@ConfigurationProperties("limit-service")
+@ConfigurationProperties()
 public class PropConfigurations {
 	private int minimum;
 	private int maximum;
